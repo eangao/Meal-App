@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 8,
     elevation: 4,
+    backgroundColor: "white",
     shadowColor: "black",
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
-    backgroundColor: "white",
     overflow: Platform.OS === "android" ? "hidden" : "visible", // Ensures that the shadow and border radius are applied correctly
   },
   button: {

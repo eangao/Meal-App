@@ -1,12 +1,36 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-function MealItem({ title }) {
+function MealItem({ title, imageUrl, complexity, duration, affordability }) {
   return (
-    // <Pressable onPress={onPress}>
     <View style={styles.mealItem}>
-      <Text style={styles.title}>{title}</Text>
+      <Pressable
+        android_ripple={{ color: "#ccc" }}
+        style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+        onPress={() => {
+          console.log("Meal Item Pressed");
+          // You can navigate to the meal details screen here if needed
+        }}
+      >
+        <View style={styles.innerContainer}>
+          <View>
+            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <Text style={styles.title}>{title}</Text>
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.detailItem}>{duration}</Text>
+            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
+            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
+          </View>
+        </View>
+      </Pressable>
     </View>
-    // </Pressable>
   );
 }
 
@@ -14,13 +38,42 @@ export default MealItem;
 
 const styles = StyleSheet.create({
   mealItem: {
-    padding: 16,
-    margin: 8,
+    margin: 16,
     borderRadius: 8,
-    backgroundColor: "#f9c2ff",
+    overflow: "hidden",
+    backgroundColor: "white",
+    elevation: 4, // Android shadow
+    shadowColor: "black", // iOS shadow
+    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 16,
+    overflow: Platform.OS === "android" ? "hidden" : "visible", // Ensures that the shadow and border radius are applied correctly
+  },
+  buttonPressed: {
+    opacity: 0.5, // Changed from '0.25' to '0.5' for a more noticeable effect
+  },
+  innerContainer: {
+    borderRadius: 8,
+    overflow: "hidden",
   },
   title: {
     fontWeight: "bold",
+    textAlign: "center",
     fontSize: 18,
+    margin: 8,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+  },
+  details: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 8,
+  },
+  detailItem: {
+    marginHorizontal: 4,
+    fontSize: 12,
   },
 });
